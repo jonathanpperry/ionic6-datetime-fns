@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { IonDatetime } from '@ionic/angular';
 import { format, parseISO } from 'date-fns';
 
 @Component({
@@ -19,9 +20,10 @@ export class HomePage {
 
   selectedMode = 'date';
   showPicker = false;
-
   dateValue = format(new Date(), 'yyyy-MM-dd') + 'T09:00:00.000Z';
   formattedString = '';
+
+  @ViewChild(IonDatetime) datetime: IonDatetime;
 
   constructor() {
     this.setToday();
@@ -37,6 +39,14 @@ export class HomePage {
   dateChanged(value) {
     this.dateValue = value;
     this.formattedString = format(parseISO(value), 'HH:mm, MMM dd yyyy');
-    this.showPicker = false
+    this.showPicker = false;
+  }
+
+  close() {
+    this.datetime.cancel(true);
+  }
+
+  select() {
+    this.datetime.confirm(true);
   }
 }
