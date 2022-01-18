@@ -12,6 +12,17 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-item (click)="showPicker = !showPicker"> </ion-item>
-  <ion-datetime [presentation]="selectedMode"></ion-datetime>
+  <ion-item (click)="showPicker = !showPicker">
+    <ion-label>Date</ion-label>
+    <ion-text slot="end"> {{formattedString}} </ion-text>
+  </ion-item>
+  <ion-datetime
+    #datetime
+    *ngIf="showPicker"
+    [value]="dateValue"
+    size="cover"
+    (ionChange)="dateChanged(datetime.value)"
+    showDefaultButtons="true"
+    (ionCancel)="showPicker = false;"
+  ></ion-datetime>
 </ion-content>
